@@ -3,3 +3,8 @@ Breeze.js is a lightweight JavaScript framework designed for simplified web deve
 
 # Documentation
 https://github.com/aidngonz/Breeze.js/blob/main/Documentation.md
+
+# Install
+```shell
+npm i breeze-web-framework
+```
