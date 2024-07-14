@@ -69,7 +69,7 @@ Run the HTML file.
 ----------
 
 ## Imports
-```sh
+```shell
 npm i breeze-web-framework
 ```
 ```javascript
@@ -94,17 +94,9 @@ Creates a new DOM element with the specified type, attributes, and optional cont
             
     -   `content` (string): Inner text content of the element.
         
-    -   `element` (HTMLElement): Newly created DOM element.
-        
 -   **Returns:**
-    
 
-#### Example:
-
-```javascript
-const element = newElement('div', { id: 'myDiv', classListAdd: 'highlight', style: { color: 'red' } }, 'Hello, Breeze.js!');
-document.body.appendChild(element);
-```
+    -   `element` (HTMLElement): Newly created DOM element.
 
 ----------
 
@@ -116,22 +108,14 @@ Represents a layer on the document with methods to manage elements within it.
     
     -   `new Layer(id, zIndex = 0)`: Creates a new layer with a specified ID and zIndex.
         
+-   **Methods:**
+    
     -   `addElement(element)`: Adds a child element to the layer.
         
     -   `removeElement(element)`: Removes a child element from the layer.
         
     -   `setZIndex(zIndex)`: Sets the z-index of the layer.
-        
--   **Methods:**
-    
-
-#### Example:
-
-```javascript
-const layer1 = createLayer('layer1', 10);
-const h1Element = newElement('h1', { classListAdd: 'blue' }, 'Hello World in Layer');
-layer1.addElement(h1Element);
-```
+ 
 
 ----------
 
@@ -143,6 +127,8 @@ Manages state data and notifies listeners of state changes.
     
     -   `new State(initialState = {})`: Creates a new state instance with optional initial state.
         
+-   **Methods:**
+
     -   `getState()`: Retrieves the current state object.
         
     -   `setState(newState)`: Updates the state with new data and notifies listeners.
@@ -152,19 +138,6 @@ Manages state data and notifies listeners of state changes.
     -   `addListener(listener)`: Adds a listener function to be notified of state changes.
         
     -   `removeListener(listener)`: Removes a previously added listener.
-        
--   **Methods:**
-    
-
-#### Example:
-
-```javascript
-const buttonState = createState({ start: "Clicked 0 times", count: 0 });
-buttonState.addListener((state) => {
-    console.log(`Button clicked ${state.count} times.`);
-});
-buttonState.setState({ count: 1 });
-```
 
 ----------
 
@@ -187,7 +160,7 @@ Additional utility functions to assist with DOM manipulation.
     -   `appendElementWithListener(parent, tag, props, event, callback)`: Creates an element with an event listener and appends it to a parent.
         
 
-#### Example:
+#### Full Example Code:
 
 ```javascript
 import { createLayer, createState } from './node_modules/breeze-web-framework/breeze.js';
