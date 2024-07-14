@@ -1,5 +1,19 @@
 # Breeze.js
-Breeze.js is a lightweight JavaScript framework designed for simplified web development, focusing on DOM manipulation and state management.
+### Description:
+
+Breeze.js is a lightweight JavaScript framework designed for simplified web development, focusing on DOM manipulation and state management. With a minimalist approach, it offers essential functionalities such as creating DOM elements (`newElement`), managing document layers (`Layer`), handling application state (`State`), and utility functions (`Helpers`) to streamline development tasks.
+
+### Use Cases:
+
+Breeze.js is ideal for developers looking to build responsive and interactive web applications efficiently. Use cases include:
+
+- Dynamic UI Creation: Easily generate and manipulate DOM elements to dynamically update user interfaces based on data changes.
+
+- Layered Application Structure: Manage complex application layouts with layered elements (`Layer`), facilitating organized and visually distinct components.
+
+- State Management: Maintain application state (`State`) across components, enabling synchronized updates and efficient data handling.
+
+- Utility Functions: Simplify common DOM operations (`Helpers`), such as element creation, attribute setting, and event handling, enhancing developer productivity.
 
 # Documentation
 https://github.com/aidngonz/Breeze.js/blob/main/Documentation.md
@@ -34,3 +48,7 @@ buttonState.addListener((state) => {
     button.textContent = `Clicked ${state.count} times`;
 });
 ```
+
+# Contributing
+As of now Breeze.js is simple and in some ways limited. Please contribute to this project to help improve it, not to damage the project or someones computer with malitious code, not to insult someone with offensive languange or comments. 
+Thank you (and the rest of the Github communty) for helping contribute to the growth of Breeze.js.
