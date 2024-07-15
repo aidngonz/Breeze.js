@@ -154,15 +154,7 @@ class Form {
     }
 
     getDataOnSubmit() {
-        this.element.addEventListener('submit', (event) => {
-            event.preventDefault();
-            let data = {};
-            this.inputs.forEach(input => {
-                data[input.id] = input.value;
-            });
-            console.log(data);
-            return data;
-        });
+        return this.inputs.map(input => ({ name: input.name, value: input.value }));
     }
 }
 
