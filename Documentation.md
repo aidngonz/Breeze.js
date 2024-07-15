@@ -43,8 +43,8 @@ Create an HTML file like so:
 Create app.js:
 
 ```javascript
-import { createLayer, createState, createForm } from './node_modules/breezejs-web/breeze.js';
-import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/helpers.js';
+import { createLayer, createState, createForm } from './node_modules/breezejs-web/src/breeze.js';
+import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/src/helpers.js';
 
 // Layers:
 const layer1 = createLayer('layer1', 10);
@@ -84,8 +84,8 @@ Run the HTML file.
 npm i breezejs-web
 ```
 ```javascript
-import { newElement, Layer, createLayer, State, createState, Form, createForm } from  './node_modules/breezejs-web/breeze.js';
-import { appendTo, setTextContent, setAttributes, createElementWithText, createElementAndAppend, appendElementWithListener } from  './node_modules/breezejs-web/helpers.js';
+import { newElement, Layer, createLayer, State, createState, Form, createForm } from  './node_modules/breezejs-web/src/breeze.js';
+import { appendTo, setTextContent, setAttributes, createElementWithText, createElementAndAppend, appendElementWithListener } from  './node_modules/breezejs-web/src/helpers.js';
 ```
 ---
 
@@ -197,8 +197,8 @@ Additional utility functions to assist with DOM manipulation.
 #### Full Example Code:
 
 ```javascript
-import { createLayer, createState, createForm } from './node_modules/breezejs-web/breeze.js';
-import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/helpers.js';
+import { createLayer, createState, createForm } from './node_modules/breezejs-web/src/breeze.js';
+import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/src/helpers.js';
 
 // Layers:
 const layer1 = createLayer('layer1', 10);
