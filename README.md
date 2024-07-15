@@ -19,16 +19,16 @@ Breeze.js is ideal for developers looking to build responsive and interactive we
 https://github.com/aidngonz/Breeze.js/blob/main/Documentation.md
 
 # Install
-NPM: https://www.npmjs.com/package/breeze-web-framework
+NPM: https://www.npmjs.com/package/breezejs-web
 
 ```shell
-npm i breeze-web-framework
+npm i breezejs-web
 ```
 
 # Example Code
 ```javascript
-import { createLayer, createState } from './node_modules/breeze-web-framework/breeze.js';
-import { appendElementWithListener, createElementAndAppend } from './node_modules/breeze-web-framework/helpers.js';
+import { createLayer, createState } from './node_modules/breezejs-web/breeze.js';
+import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/helpers.js';
 
 const layer1 = createLayer('layer1', 10);
 const layer2 = createLayer('layer2', 20);
