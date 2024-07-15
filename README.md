@@ -19,7 +19,7 @@ Breeze.js is ideal for developers looking to build responsive and interactive we
 https://github.com/aidngonz/Breeze.js/blob/main/Documentation.md
 
 # Install
-NPM: [https://www.npmjs.com/package/breeze-web-framework](https://www.npmjs.com/package/breezejs-web)
+NPM: https://www.npmjs.com/package/breezejs-web
 
 ```shell
 npm i breezejs-web
