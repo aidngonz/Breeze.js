@@ -72,7 +72,7 @@ buttonState.addListener((state) => {
 const form = createForm('form', layer3);
 form.addInput('firstInput', 'placeholder');
 form.addSubmit('submit', 'Submit');
-form.getDataOnSubmit();
+console.log(form.getDataOnSubmit());
 ```
 
 Run the HTML file.
@@ -226,7 +226,7 @@ buttonState.addListener((state) => {
 const form = createForm('form', layer3);
 form.addInput('firstInput', 'placeholder');
 form.addSubmit('submit', 'Submit');
-form.getDataOnSubmit();
+console.log(form.getDataOnSubmit());
 ```
 
 ----------
