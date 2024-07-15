@@ -107,6 +107,8 @@ Represents a layer on the document with methods to manage elements within it.
 -   **Constructor:**
     
     -   `new Layer(id, zIndex = 0)`: Creates a new layer with a specified ID and zIndex.
+ 
+    -   Alternative Function: `createLayer(id, zIndex)`.
         
 -   **Methods:**
     
@@ -126,6 +128,8 @@ Manages state data and notifies listeners of state changes.
 -   **Constructor:**
     
     -   `new State(initialState = {})`: Creates a new state instance with optional initial state.
+ 
+    -   Alternative Function: `createState(initialState = {})`.
         
 -   **Methods:**
 
@@ -139,6 +143,25 @@ Manages state data and notifies listeners of state changes.
         
     -   `removeListener(listener)`: Removes a previously added listener.
 
+----------
+
+#### `Form`
+Creates a Form element and collects data on submit.
+
+- **Constructor:**
+
+    - `new Form(id, layer)`: Returns a newly created form element.
+ 
+    -  Alternative Function: `createForm(id, layer)`.
+ 
+- **Methods:**
+
+    - `addInput(id, placeholder)`: Adds an input element in the form.
+ 
+    - `addSubmit(id, value)`: A trigger to submit form data.
+ 
+    - `getDataOnSubmit()`: Get input values and return them to an array.
+ 
 ----------
 
 #### `Helpers`
@@ -166,13 +189,17 @@ Additional utility functions to assist with DOM manipulation.
 import { createLayer, createState } from './node_modules/breeze-web-framework/breeze.js';
 import { appendElementWithListener, createElementAndAppend } from './node_modules/breeze-web-framework/helpers.js';
 
+// Layers:
 const layer1 = createLayer('layer1', 10);
 const layer2 = createLayer('layer2', 20);
+const layer3 = createLayer('layer3', 30);
 
+// Elements:
 createElementAndAppend(layer1.element, 'h1', { classListAdd: 'blue' }, 'Hello World in Layer');
 createElementAndAppend(layer1.element, 'p', {}, 'This is a paragraph in layer 1.');
 
-const buttonState = createState({ start: "Clicked 0 times", count: 0 });
+// Buttons and Reactivity:
+const buttonState = createState({ count: 0 });
 
 let button = appendElementWithListener(layer2.element, 'button', {}, 'click', () => {
     buttonState.setState({ count: buttonState.getState().count + 1 });
@@ -183,6 +210,12 @@ button.textContent = `Clicked ${buttonState.getState().count} times`;
 buttonState.addListener((state) => {
     button.textContent = `Clicked ${state.count} times`;
 });
+
+// Form:
+const form = createForm('form', layer3);
+form.addInput('firstInput', 'placeholder');
+form.addSubmit('submit', 'Submit');
+form.getDataOnSubmit();
 ```
 
 ----------
