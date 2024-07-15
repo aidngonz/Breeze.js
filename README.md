@@ -27,8 +27,8 @@ npm i breezejs-web
 
 # Example Code
 ```javascript
-import { createLayer, createState } from './node_modules/breezejs-web/breeze.js';
-import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/helpers.js';
+import { createLayer, createState } from './node_modules/breezejs-web/src/breeze.js';
+import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/src/helpers.js';
 
 const layer1 = createLayer('layer1', 10);
 const layer2 = createLayer('layer2', 20);
