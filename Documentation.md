@@ -43,16 +43,20 @@ Create an HTML file like so:
 Create app.js:
 
 ```javascript
-import { createLayer, createState } from './node_modules/breeze-web-framework/breeze.js';
+import { createLayer, createState, createForm } from './node_modules/breeze-web-framework/breeze.js';
 import { appendElementWithListener, createElementAndAppend } from './node_modules/breeze-web-framework/helpers.js';
 
+// Layers:
 const layer1 = createLayer('layer1', 10);
 const layer2 = createLayer('layer2', 20);
+const layer3 = createLayer('layer3', 30);
 
+// Elements:
 createElementAndAppend(layer1.element, 'h1', { classListAdd: 'blue' }, 'Hello World in Layer');
 createElementAndAppend(layer1.element, 'p', {}, 'This is a paragraph in layer 1.');
 
-const buttonState = createState({ start: "Clicked 0 times", count: 0 });
+// Buttons and Reactivity:
+const buttonState = createState({ count: 0 });
 
 let button = appendElementWithListener(layer2.element, 'button', {}, 'click', () => {
     buttonState.setState({ count: buttonState.getState().count + 1 });
@@ -63,6 +67,12 @@ button.textContent = `Clicked ${buttonState.getState().count} times`;
 buttonState.addListener((state) => {
     button.textContent = `Clicked ${state.count} times`;
 });
+
+// Form:
+const form = createForm('form', layer3);
+form.addInput('firstInput', 'placeholder');
+form.addSubmit('submit', 'Submit');
+form.getDataOnSubmit();
 ```
 
 Run the HTML file.
@@ -187,7 +197,7 @@ Additional utility functions to assist with DOM manipulation.
 #### Full Example Code:
 
 ```javascript
-import { createLayer, createState } from './node_modules/breeze-web-framework/breeze.js';
+import { createLayer, createState, createForm } from './node_modules/breeze-web-framework/breeze.js';
 import { appendElementWithListener, createElementAndAppend } from './node_modules/breeze-web-framework/helpers.js';
 
 // Layers:
