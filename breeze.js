@@ -24,7 +24,7 @@ const newElement = (type, attributes = {}, content = '') => {
     return element;
 }
 
-module.exports = newElement;
+export { newElement };
 
 class Layer {
     constructor(id, zIndex = 0) {
@@ -48,13 +48,13 @@ class Layer {
     }
 }
 
-module.exports = Layer;
+export { Layer };
 
 const createLayer = (id, zIndex) => {
     return new Layer(id, zIndex);
 }
 
-module.exports = createLayer;
+export { createLayer };
 
 class State {
     constructor(initialState = {}) {
@@ -122,10 +122,54 @@ class State {
     }
 }
 
-module.exports = State;
+export { State };
 
 const createState = (initialState = {}) => {
     return new State(initialState);
 }
 
-module.exports = createState;
+export { createState };
+
+class Form {
+    constructor(id, layer) {
+        this.id = id;
+        this.element = newElement('form', { id: id });
+        if (layer) {
+            layer.addElement(this.element);
+        } else {
+            document.body.appendChild(this.element);
+        }
+        this.inputs = [];
+    }
+
+    addInput(id, placeholder) {
+        const input = newElement('input', { id: id, placeholder: placeholder });
+        this.element.appendChild(input);
+        this.inputs.push(input);
+    }
+
+    addSubmit(id, value) {
+        const submit = newElement('input', { type: 'submit', id: id, value: value });
+        this.element.appendChild(submit);
+    }
+
+    getDataOnSubmit() {
+        this.element.addEventListener('submit', (event) => {
+            event.preventDefault();
+            let data = {};
+            this.inputs.forEach(input => {
+                data[input.id] = input.value;
+            });
+            console.log(data);
+            return data;
+        });
+    }
+}
+
+export { Form };
+
+const createForm = (id, layer) => {
+    return new Form(id, layer);
+}
+
+export { createForm };
