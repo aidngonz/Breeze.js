@@ -1,4 +1,4 @@
-# Breeze.js 1.2.0
+# Breeze.js 1.2.1
 ### Description:
 
 Breeze.js is a lightweight JavaScript framework designed for simplified web development, focusing on DOM manipulation and state management. With a minimalist approach, it offers essential functionalities such as creating DOM elements (`newElement`), managing document layers (`Layer`), handling application state (`State`), create forms and collect form data (`Form `), and utility functions (`Helpers`) to streamline development tasks.
