@@ -1,0 +1,23 @@
+{
+  "name": "breezejs-web",
+  "version": "1.2.1",
+  "description": "Breeze.js is a lightweight JavaScript framework designed for simplified web development, focusing on DOM manipulation and state management.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidngonz/Breeze.js.git"
+  },
+  "keywords": [
+    "web-framework",
+    "javascript"
+  ],
+  "author": "Aiden Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aidngonz/Breeze.js/issues"
+  },
+  "homepage": "https://github.com/aidngonz/Breeze.js#readme"
+}
