@@ -1,3 +1,5 @@
+// breeze.js
+
 const newElement = (type, attributes = {}, content = '') => {
     if (typeof type !== 'string') {
         throw new Error('Invalid element type. Expected a string.');
