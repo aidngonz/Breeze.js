@@ -1,6 +1,6 @@
 
 ## Breeze.js: Lightning-fast DOM and State Management for Modern Web Apps.
-**Current version:** 1.2.2
+**Current version:** 1.2.1
 
 **Description:**
 
