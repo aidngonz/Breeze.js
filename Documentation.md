@@ -1,27 +1,22 @@
-
 ## Breeze.js: Lightning-fast DOM and State Management for Modern Web Apps.
 **Current version:** 1.2.1
 
-**Description:**
+### Description:
 
-Breeze.js is a lightweight JavaScript framework designed for simplified web development, focusing on DOM manipulation and state management. With a minimalist approach, it offers essential functionalities such as creating DOM elements (`newElement`), managing document layers (`Layer`), handling application state (`State`), create forms and collect form data (`Form `), and utility functions (`Helpers`) to streamline development tasks.
+Breeze.js is a lightweight JavaScript framework designed for simplified web development, focusing on DOM manipulation and state management. With a minimalist approach, it offers essential functionalities such as creating DOM elements (`newElement`), managing document layers (`Layer`), handling application state (`State`), creating forms and collecting form data (`Form`), and utility functions (`Helpers`) to streamline development tasks.
 
-**Use Cases:**
+### Use Cases:
 
 Breeze.js is ideal for developers looking to build responsive and interactive web applications efficiently. Use cases include:
 
--   **Dynamic UI Creation:** Easily generate and manipulate DOM elements to dynamically update user interfaces based on data changes.
-    
--   **Layered Application Structure:** Manage complex application layouts with layered elements (`Layer`), facilitating organized and visually distinct components.
-    
--   **State Management:** Maintain application state (`State`) across components, enabling synchronized updates and efficient data handling.
-    
--   **Utility Functions:** Simplify common DOM operations (`Helpers`), such as element creation, attribute setting, and event handling, enhancing developer productivity.
-    
+- **Dynamic UI Creation**: Easily generate and manipulate DOM elements to dynamically update user interfaces based on data changes.
+- **Layered Application Structure**: Manage complex application layouts with layered elements (`Layer`), facilitating organized and visually distinct components.
+- **State Management**: Maintain application state (`State`) across components, enabling synchronized updates and efficient data handling.
+- **Utility Functions**: Simplify common DOM operations (`Helpers`), such as element creation, attribute setting, and event handling, enhancing developer productivity.
 
 Whether creating interactive dashboards, real-time data displays, or customizable web components, Breeze.js empowers developers with essential tools to build modern web experiences effectively.
 
-### Set up:
+### Setup:
 
 Create an HTML file like so:
 
@@ -40,7 +35,7 @@ Create an HTML file like so:
 </html>
 ```
 
-Create app.js:
+Create `app.js`:
 
 ```javascript
 import { createLayer, createState, createForm } from './node_modules/breezejs-web/src/breeze.js';
@@ -77,124 +72,95 @@ console.log(form.getDataOnSubmit());
 
 Run the HTML file.
 
-----------
+---
 
-## Imports
+### Imports
+
 ```shell
 npm i breezejs-web
 ```
+
 ```javascript
 import { newElement, Layer, createLayer, State, createState, Form, createForm } from  './node_modules/breezejs-web/src/breeze.js';
 import { appendTo, setTextContent, setAttributes, createElementWithText, createElementAndAppend, appendElementWithListener } from  './node_modules/breezejs-web/src/helpers.js';
 ```
+
 ---
 
-#### `newElement(type, attributes = {}, content = '')`
+### `newElement(type, attributes = {}, content = '')`
 
 Creates a new DOM element with the specified type, attributes, and optional content.
 
--   **Parameters:**
-    
-    -   `type` (string): Type of HTML element to create (e.g., 'div', 'span').
-        
-    -   `attributes` (object): Attributes to apply to the element.
-        
-        -   `classListAdd` (string or array of strings): Class(es) to add to the element's classList.
-            
-        -   Other attributes (e.g., 'id', 'style').
-            
-    -   `content` (string): Inner text content of the element.
-        
--   **Returns:**
+- **Parameters:**
+    - `type` (string): Type of HTML element to create (e.g., 'div', 'span').
+    - `attributes` (object): Attributes to apply to the element.
+        - `classListAdd` (string or array of strings): Class(es) to add to the element's classList.
+        - Other attributes (e.g., 'id', 'style').
+    - `content` (string): Inner text content of the element.
+- **Returns:**
+    - `element` (HTMLElement): Newly created DOM element.
 
-    -   `element` (HTMLElement): Newly created DOM element.
+---
 
-----------
-
-#### `Layer`
+### `Layer`
 
 Represents a layer on the document with methods to manage elements within it.
 
--   **Constructor:**
-    
-    -   `new Layer(id, zIndex = 0)`: Creates a new layer with a specified ID and zIndex.
- 
-    -   Alternative Function: `createLayer(id, zIndex)`.
-        
--   **Methods:**
-    
-    -   `addElement(element)`: Adds a child element to the layer.
-        
-    -   `removeElement(element)`: Removes a child element from the layer.
-        
-    -   `setZIndex(zIndex)`: Sets the z-index of the layer.
- 
+- **Constructor:**
+    - `new Layer(id, zIndex = 0)`: Creates a new layer with a specified ID and zIndex.
+    - **Alternative Function:** `createLayer(id, zIndex)`.
+- **Methods:**
+    - `addElement(element)`: Adds a child element to the layer.
+    - `removeElement(element)`: Removes a child element from the layer.
+    - `setZIndex(zIndex)`: Sets the z-index of the layer.
 
-----------
+---
 
-#### `State`
+### `State`
 
 Manages state data and notifies listeners of state changes.
 
--   **Constructor:**
-    
-    -   `new State(initialState = {})`: Creates a new state instance with optional initial state.
- 
-    -   Alternative Function: `createState(initialState = {})`.
-        
--   **Methods:**
+- **Constructor:**
+    - `new State(initialState = {})`: Creates a new state instance with optional initial state.
+    - **Alternative Function:** `createState(initialState = {})`.
+- **Methods:**
+    - `getState()`: Retrieves the current state object.
+    - `setState(newState)`: Updates the state with new data and notifies listeners.
+    - `resetState()`: Resets the state to an empty object.
+    - `addListener(listener)`: Adds a listener function to be notified of state changes.
+    - `removeListener(listener)`: Removes a previously added listener.
 
-    -   `getState()`: Retrieves the current state object.
-        
-    -   `setState(newState)`: Updates the state with new data and notifies listeners.
-        
-    -   `resetState()`: Resets the state to an empty object.
-        
-    -   `addListener(listener)`: Adds a listener function to be notified of state changes.
-        
-    -   `removeListener(listener)`: Removes a previously added listener.
+---
 
-----------
+### `Form`
 
-#### `Form`
 Creates a Form element and collects data on submit.
 
 - **Constructor:**
-
     - `new Form(id, layer)`: Returns a newly created form element.
- 
-    -  Alternative Function: `createForm(id, layer)`.
- 
+    - **Alternative Function:** `createForm(id, layer)`.
 - **Methods:**
-
     - `addInput(id, placeholder)`: Adds an input element in the form.
- 
     - `addSubmit(id, value)`: A trigger to submit form data.
- 
-    - `getDataOnSubmit()`: Get input values and return them to an array.
- 
-----------
+    - `getDataOnSubmit()`: Get input values and return them in an array.
 
-#### `Helpers`
+---
+
+### `Helpers`
 
 Additional utility functions to assist with DOM manipulation.
 
--   **Functions:**
-    
-    -   `appendTo(parent, child)`: Appends a child element to a parent element.
-        
-    -   `setTextContent(element, text)`: Sets the text content of an element.
-        
-    -   `setAttributes(element, attributes)`: Sets attributes on an element.
-        
-    -   `createElementWithText(type, attributes = {}, text = '')`: Creates an element with specified attributes and text content.
-        
-    -   `createElementAndAppend(parent, type, attributes = {}, text = '')`: Creates an element, appends it to a parent, and returns it.
-        
-    -   `appendElementWithListener(parent, tag, props, event, callback)`: Creates an element with an event listener and appends it to a parent.
-        
+- **Functions:**
+    - `appendTo(parent, child)`: Appends a child element to a parent element.
+    - `setTextContent(element, text)`: Sets the text content of an element.
+    - `setAttributes(element, attributes)`: Sets attributes on an element.
+    - `createElementWithText(type, attributes = {}, text = '')`: Creates an element with specified attributes and text content.
+    - `createElementAndAppend(parent, type, attributes = {}, text = '')`: Creates an element, appends it to a parent, and returns it.
+    - `appendElementWithListener(parent, tag, props, event, callback)`: Creates an element with an event listener and appends it to a parent.
 
-#### Full Example Code:
+---
+
+### Full Example Code:
 
 ```javascript
 import { createLayer, createState, createForm } from './node_modules/breezejs-web/src/breeze.js';
@@ -228,7 +194,3 @@ form.addInput('firstInput', 'placeholder');
 form.addSubmit('submit', 'Submit');
 console.log(form.getDataOnSubmit());
 ```
-
-----------
-
-This documentation covers the core functionalities of Breeze.js, providing a lightweight framework for DOM manipulation, state management, and layering within web applications.
