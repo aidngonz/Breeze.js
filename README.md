@@ -25,31 +25,17 @@ npm i breezejs-web
 
 ### Example Code:
 ```javascript
-import { createLayer, createState } from 'breezejs-web/src/breeze.js';
-import { appendElementWithListener, createElementAndAppend } from 'breezejs-web/src/helpers.js';
+import { h } from './node_modules/breezejs/src/h.js';
 
-// Create two layers with different z-indexes
-const layer1 = createLayer('layer1', 10);
-const layer2 = createLayer('layer2', 20);
+// Create a parent div and add two h1 elements to it
+h(document.body, 'div', { class: 'container' }, [
+    h(document.body, 'h1', {}, "Hello"),
+    h(document.body, 'h1', {}, "World")
+]);
 
-// Add elements to the layers
-createElementAndAppend(layer1.element, 'h1', { classListAdd: 'blue' }, 'Hello World in Layer');
-createElementAndAppend(layer1.element, 'p', {}, 'This is a paragraph in layer 1.');
-
-// Initialize state for a button's click count
-const buttonState = createState({ start: "Clicked 0 times", count: 0 });
-
-// Create a button that updates the state on click
-let button = appendElementWithListener(layer2.element, 'button', {}, 'click', () => {
-    buttonState.setState({ count: buttonState.getState().count + 1 });
-});
-
-// Set the initial text for the button
-button.textContent = `Clicked ${buttonState.getState().count} times`;
-
-// Update button text whenever state changes
-buttonState.addListener((state) => {
-    button.textContent = `Clicked ${state.count} times`;
+// Create a button with click event
+h(document.body, 'button', { class: 'btn' }, 'Click Me', 'click', () => {
+    alert('Button clicked!');
 });
 ```
 
