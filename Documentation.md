@@ -1,196 +1,263 @@
-## Breeze.js: Lightning-fast DOM and State Management for Modern Web Apps.
-**Current version:** 1.2.1
+# Breeze.js - Full Documentation
 
-### Description:
+Breeze.js is a lightweight, dependency-free JavaScript micro-library for building dynamic web interfaces. It simplifies common frontend tasks such as DOM manipulation, reactive state management, and form creation—without the need for large frameworks.
 
-Breeze.js is a lightweight JavaScript framework designed for simplified web development, focusing on DOM manipulation and state management. With a minimalist approach, it offers essential functionalities such as creating DOM elements (`newElement`), managing document layers (`Layer`), handling application state (`State`), creating forms and collecting form data (`Form`), and utility functions (`Helpers`) to streamline development tasks.
+---
 
-### Use Cases:
+## 📦 Modules Overview
 
-Breeze.js is ideal for developers looking to build responsive and interactive web applications efficiently. Use cases include:
+Breeze.js exports the following primary utilities:
 
-- **Dynamic UI Creation**: Easily generate and manipulate DOM elements to dynamically update user interfaces based on data changes.
-- **Layered Application Structure**: Manage complex application layouts with layered elements (`Layer`), facilitating organized and visually distinct components.
-- **State Management**: Maintain application state (`State`) across components, enabling synchronized updates and efficient data handling.
-- **Utility Functions**: Simplify common DOM operations (`Helpers`), such as element creation, attribute setting, and event handling, enhancing developer productivity.
+* `newElement` - Safely create DOM elements with flexible attributes and content.
+* `Layer`, `createLayer` - Manage DOM elements using layer abstraction and z-index.
+* `State`, `createState` - Lightweight, reactive state container with bindings.
+* `Form`, `createForm` - Create and manage HTML forms programmatically.
+* `h` - Declarative helper for structured, component-like DOM construction (from `h.js`).
 
-Whether creating interactive dashboards, real-time data displays, or customizable web components, Breeze.js empowers developers with essential tools to build modern web experiences effectively.
+---
 
-### Setup:
+## 🔧 `newElement(type, attributes = {}, content = '')`
 
-Create an HTML file like so:
+Creates a new DOM element with provided attributes and content.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breeze.js Website</title>
-    <script type="module" src="app.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-</body>
-</html>
+### Parameters:
+
+* `type` (`string`): Tag name, e.g. `'div'`, `'input'`.
+* `attributes` (`object`): HTML attributes or special options:
+
+  * `classListAdd`: `string | string[]`
+  * `style`: CSS styles object
+* `content` (`string`): Optional text content.
+
+### Returns:
+
+* `HTMLElement`
+
+### Example:
+
+```js
+const box = newElement('div', {
+  classListAdd: ['box', 'rounded'],
+  style: { backgroundColor: 'skyblue' },
+}, 'Hello!');
+document.body.appendChild(box);
 ```
 
-Create `app.js`:
+---
 
-```javascript
-import { createLayer, createState, createForm } from './node_modules/breezejs-web/src/breeze.js';
-import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/src/helpers.js';
+## 🧱 `class Layer`
 
-// Layers:
-const layer1 = createLayer('layer1', 10);
-const layer2 = createLayer('layer2', 20);
-const layer3 = createLayer('layer3', 30);
+Represents a high-level visual layer based on z-index.
 
-// Elements:
-createElementAndAppend(layer1.element, 'h1', { classListAdd: 'blue' }, 'Hello World in Layer');
-createElementAndAppend(layer1.element, 'p', {}, 'This is a paragraph in layer 1.');
+### Constructor:
 
-// Buttons and Reactivity:
-const buttonState = createState({ count: 0 });
+```js
+new Layer(id: string, zIndex = 0)
+```
 
-let button = appendElementWithListener(layer2.element, 'button', {}, 'click', () => {
-    buttonState.setState({ count: buttonState.getState().count + 1 });
+### Properties:
+
+* `id`: DOM id of the layer.
+* `zIndex`: Layer stacking order.
+* `element`: The actual DOM node.
+
+### Methods:
+
+* `addElement(element: HTMLElement)`: Appends child to layer.
+* `removeElement(element: HTMLElement)`: Removes child.
+* `setZIndex(zIndex: number)`: Updates visual priority.
+
+### Example:
+
+```js
+const overlay = new Layer('overlay', 100);
+overlay.addElement(newElement('p', {}, 'This is on top!'));
+```
+
+### Shorthand:
+
+```js
+const overlay = createLayer('overlay', 100);
+```
+
+---
+
+## 🔁 `class State`
+
+A reactive state container with DOM bindings.
+
+### Constructor:
+
+```js
+new State(initialState: object)
+```
+
+### Methods:
+
+* `getState()`: Returns a shallow copy of the current state.
+* `setState(newState: object)`: Merges and updates the state.
+* `resetState()`: Clears the state.
+* `addListener(fn: function)`: Register a listener for state changes.
+* `removeListener(fn: function)`: Unregister a listener.
+* `bind(element, property, stateKey)`: Bind a DOM element property to a state key.
+
+### Binding Behavior:
+
+* Supports `textContent`, `style`, and HTML attributes.
+* Updates automatically when `setState` is called.
+
+### Example:
+
+```js
+const state = new State({ name: 'Guest' });
+const title = newElement('h1');
+state.bind(title, 'textContent', 'name');
+
+document.body.appendChild(title);
+state.setState({ name: 'Aiden' });
+```
+
+### Shorthand:
+
+```js
+const state = createState({ count: 0 });
+```
+
+---
+
+## 📝 `class Form`
+
+Simple wrapper to create and manage form elements.
+
+### Constructor:
+
+```js
+new Form(id: string, layer?: Layer)
+```
+
+### Methods:
+
+* `addInput(id: string, placeholder: string)`: Add a text input.
+* `addSubmit(id: string, value: string)`: Add a submit button.
+* `getDataOnSubmit()`: Collect input values as an array of objects.
+
+### Example:
+
+```js
+const form = new Form('login');
+form.addInput('email', 'Enter email');
+form.addSubmit('submit-btn', 'Log In');
+
+document.body.appendChild(form.element);
+```
+
+### Shorthand:
+
+```js
+const form = createForm('signup');
+```
+
+---
+
+## 🪄 `h(parent, type, attributes, content, event, callback)`
+
+A declarative, JSX-like utility to create structured DOM trees easily.
+
+### Parameters:
+
+* `parent` (`HTMLElement`): Element to append to.
+* `type` (`string`): HTML tag (e.g. `'div'`)
+* `attributes` (`object`): HTML attributes (same as `newElement`)
+* `content` (`string | HTMLElement | HTMLElement[]`): Inner content
+* `event` (`string`, optional): Event name (e.g. `'click'`)
+* `callback` (`function`, optional): Event handler
+
+### Returns:
+
+* `HTMLElement`
+
+### Example:
+
+```js
+h(document.body, 'div', { id: 'card' }, [
+  h(document.createElement('div'), 'h2', {}, 'Welcome'),
+  h(document.createElement('div'), 'p', {}, 'Enjoy your stay.')
+]);
+```
+
+### With Event:
+
+```js
+h(document.body, 'button', {}, 'Click me', 'click', () => alert('Hello!'));
+```
+
+### Benefits:
+
+* Cleaner, structured creation
+* Auto-binding
+* Supports nesting and event attachment
+
+---
+
+## 🧰 helpers.js Utilities
+
+* `appendTo(parent, child)`
+* `setTextContent(element, text)`
+* `setAttributes(element, attributes)`
+* `createElementWithText(type, attributes, text)`
+* `createElementAndAppend(parent, type, attributes, text)`
+* `appendElementWithListener(parent, tag, props, event, callback)`
+
+These utilities support internal functionality and custom DSL development.
+
+---
+
+## 🔐 Error Handling
+
+Breeze.js performs strict input validation and will throw descriptive errors when:
+
+* Element creation is passed invalid types
+* State key bindings are invalid or undefined
+* DOM operations are performed on non-HTMLElements
+
+---
+
+## ✅ Example App: Counter
+
+```js
+import { createState, newElement } from './breeze.js';
+import { h } from './h.js';
+
+const state = createState({ count: 0 });
+
+const app = document.getElementById('app');
+const display = newElement('p');
+state.bind(display, 'textContent', 'count');
+
+h(app, 'button', {}, 'Increment', 'click', () => {
+  state.setState({ count: state.getState().count + 1 });
 });
 
-button.textContent = `Clicked ${buttonState.getState().count} times`;
-
-buttonState.addListener((state) => {
-    button.textContent = `Clicked ${state.count} times`;
-});
-
-// Form:
-const form = createForm('form', layer3);
-form.addInput('firstInput', 'placeholder');
-form.addSubmit('submit', 'Submit');
-console.log(form.getDataOnSubmit());
-```
-
-Run the HTML file.
-
----
-
-### Imports
-
-```shell
-npm i breezejs-web
-```
-
-```javascript
-import { newElement, Layer, createLayer, State, createState, Form, createForm } from  './node_modules/breezejs-web/src/breeze.js';
-import { appendTo, setTextContent, setAttributes, createElementWithText, createElementAndAppend, appendElementWithListener } from  './node_modules/breezejs-web/src/helpers.js';
+app.appendChild(display);
 ```
 
 ---
 
-### `newElement(type, attributes = {}, content = '')`
+## 🧪 Roadmap Ideas
 
-Creates a new DOM element with the specified type, attributes, and optional content.
-
-- **Parameters:**
-    - `type` (string): Type of HTML element to create (e.g., 'div', 'span').
-    - `attributes` (object): Attributes to apply to the element.
-        - `classListAdd` (string or array of strings): Class(es) to add to the element's classList.
-        - Other attributes (e.g., 'id', 'style').
-    - `content` (string): Inner text content of the element.
-- **Returns:**
-    - `element` (HTMLElement): Newly created DOM element.
+* Built-in router
+* Component-style abstraction
+* Lightweight animation helpers
+* Virtual DOM diffing (optional)
 
 ---
 
-### `Layer`
+## 💬 License & Contributions
 
-Represents a layer on the document with methods to manage elements within it.
+MIT LICENSE
 
-- **Constructor:**
-    - `new Layer(id, zIndex = 0)`: Creates a new layer with a specified ID and zIndex.
-    - **Alternative Function:** `createLayer(id, zIndex)`.
-- **Methods:**
-    - `addElement(element)`: Adds a child element to the layer.
-    - `removeElement(element)`: Removes a child element from the layer.
-    - `setZIndex(zIndex)`: Sets the z-index of the layer.
+Breeze.js is open to extension and feedback. Fork and improve!
 
 ---
 
-### `State`
-
-Manages state data and notifies listeners of state changes.
-
-- **Constructor:**
-    - `new State(initialState = {})`: Creates a new state instance with optional initial state.
-    - **Alternative Function:** `createState(initialState = {})`.
-- **Methods:**
-    - `getState()`: Retrieves the current state object.
-    - `setState(newState)`: Updates the state with new data and notifies listeners.
-    - `resetState()`: Resets the state to an empty object.
-    - `addListener(listener)`: Adds a listener function to be notified of state changes.
-    - `removeListener(listener)`: Removes a previously added listener.
-
----
-
-### `Form`
-
-Creates a Form element and collects data on submit.
-
-- **Constructor:**
-    - `new Form(id, layer)`: Returns a newly created form element.
-    - **Alternative Function:** `createForm(id, layer)`.
-- **Methods:**
-    - `addInput(id, placeholder)`: Adds an input element in the form.
-    - `addSubmit(id, value)`: A trigger to submit form data.
-    - `getDataOnSubmit()`: Get input values and return them in an array.
-
----
-
-### `Helpers`
-
-Additional utility functions to assist with DOM manipulation.
-
-- **Functions:**
-    - `appendTo(parent, child)`: Appends a child element to a parent element.
-    - `setTextContent(element, text)`: Sets the text content of an element.
-    - `setAttributes(element, attributes)`: Sets attributes on an element.
-    - `createElementWithText(type, attributes = {}, text = '')`: Creates an element with specified attributes and text content.
-    - `createElementAndAppend(parent, type, attributes = {}, text = '')`: Creates an element, appends it to a parent, and returns it.
-    - `appendElementWithListener(parent, tag, props, event, callback)`: Creates an element with an event listener and appends it to a parent.
-
----
-
-### Full Example Code:
-
-```javascript
-import { createLayer, createState, createForm } from './node_modules/breezejs-web/src/breeze.js';
-import { appendElementWithListener, createElementAndAppend } from './node_modules/breezejs-web/src/helpers.js';
-
-// Layers:
-const layer1 = createLayer('layer1', 10);
-const layer2 = createLayer('layer2', 20);
-const layer3 = createLayer('layer3', 30);
-
-// Elements:
-createElementAndAppend(layer1.element, 'h1', { classListAdd: 'blue' }, 'Hello World in Layer');
-createElementAndAppend(layer1.element, 'p', {}, 'This is a paragraph in layer 1.');
-
-// Buttons and Reactivity:
-const buttonState = createState({ count: 0 });
-
-let button = appendElementWithListener(layer2.element, 'button', {}, 'click', () => {
-    buttonState.setState({ count: buttonState.getState().count + 1 });
-});
-
-button.textContent = `Clicked ${buttonState.getState().count} times`;
-
-buttonState.addListener((state) => {
-    button.textContent = `Clicked ${state.count} times`;
-});
-
-// Form:
-const form = createForm('form', layer3);
-form.addInput('firstInput', 'placeholder');
-form.addSubmit('submit', 'Submit');
-console.log(form.getDataOnSubmit());
-```
+For more examples or to get started with templates, check out the GitHub repo (coming soon).
