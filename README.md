@@ -15,7 +15,7 @@ You can install Breeze.js by cloning this GitHub repo.
 
 ### Example Code:
 ```javascript
-import { h } from './Breezejs/src/h.js';
+import { h } from './Breeze.js/src/h.js';
 
 // Create a parent div and add two h1 elements to it
 h(document.body, 'div', { class: 'container' }, [
